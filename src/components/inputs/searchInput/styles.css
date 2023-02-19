@@ -1,0 +1,25 @@
+.search_input {
+  background: #fff;
+  color: #525865;
+  /* border-radius: 4px; */
+  border: 1px solid #d1d1d1;
+  box-shadow: inset 1px 2px 8px rgba(0, 0, 0, 0.07);
+  outline: none;
+  -webkit-transition: 0.18s ease-out;
+  -moz-transition: 0.18s ease-out;
+  -o-transition: 0.18s ease-out;
+  transition: 0.18s ease-out;
+}
+.search_input:hover {
+  box-shadow: inset 1px 2px 8px rgba(0, 0, 0, 0.02);
+}
+.search_input:focus {
+  color: #4b515d;
+  border: 1px solid #b8b6b6;
+  box-shadow: inset 1px 2px 4px rgba(0, 0, 0, 0.01),
+    0px 0px 8px rgba(0, 0, 0, 0.2);
+}
+
+.MuiAutocomplete-noOptions {
+  display: none;
+}
