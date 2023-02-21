@@ -1,15 +1,12 @@
 import { Autocomplete, Box, InputBase } from "@mui/material";
-import { Link, useNavigate, useLocation } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import SearchIcon from "@mui/icons-material/Search";
 import { useEffect, useState } from "react";
 import { styled } from "@mui/material/styles";
 import "./styles.css";
 import { getFiltredCourses } from "../../../redux/features/coursesSlice";
 import { useDispatch, useSelector } from "react-redux";
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+import { useQuery } from "../../../utils/functions";
 
 const StyledInputBase = styled(InputBase)(({ theme }) => ({
   color: "inherit",

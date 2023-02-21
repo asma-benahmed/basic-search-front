@@ -1,7 +1,6 @@
 import React /*, { useState }*/ from "react";
 import { Grid /*Divider, Pagination*/ } from "@mui/material";
 import { useEffect } from "react";
-import { useLocation } from "react-router-dom";
 import SearchInput from "../../components/inputs/searchInput/SearchInput";
 import DataItemTitle from "../../components/cards/DataItemTitle";
 import NotFound from "./NotFound";
@@ -9,10 +8,7 @@ import { getFiltredCourses } from "../../redux/features/coursesSlice";
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { ThreeCircles } from "react-loader-spinner";
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
-}
+import { useQuery } from "../../utils/functions";
 
 const DataFiltred = () => {
   const query = useQuery();
