@@ -1,29 +1,46 @@
-import React, { useState } from "react";
-import { Container, Grid, /*Divider,*/ Pagination } from "@mui/material";
+import React /*, { useState }*/ from "react";
+import { Grid /*Divider, Pagination*/ } from "@mui/material";
 import { useEffect } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import SearchInput from "../../components/inputs/searchInput/SearchInput";
 import DataItemTitle from "../../components/cards/DataItemTitle";
 import NotFound from "./NotFound";
 import { getFiltredCourses } from "../../redux/features/coursesSlice";
 import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
+import { ThreeCircles } from "react-loader-spinner";
 
 function useQuery() {
   return new URLSearchParams(useLocation().search);
 }
 
-const DataFiltred = (props) => {
+const DataFiltred = () => {
   const query = useQuery();
-  const courses = useSelector((state) => state.courses.courses);
+  const { courses, loading } = useSelector((state) => state.courses);
   const dispatch = useDispatch();
   const search_query = query.get("search_query");
 
   useEffect(() => {
     if (search_query.length > 2) {
-      dispatch(getFiltredCourses(search_query));
+      dispatch(getFiltredCourses({ search_query }));
     }
-  }, [search_query]);
+  }, [search_query, dispatch]);
+
+  if (loading) {
+    return (
+      <div id="box">
+        <ThreeCircles
+          height="80"
+          width="80"
+          radius="9"
+          color="blue"
+          ariaLabel="loading"
+          wrapperStyle
+          wrapperClass
+        />
+      </div>
+    );
+  }
 
   return (
     <main>
@@ -36,54 +53,39 @@ const DataFiltred = (props) => {
           <SearchInput bgColor="#EBEAEB" color="black" />{" "}
         </div>
       </div>
-
-      {courses.length ? (
+      {!!courses.length ? (
         <div style={{ height: "100vh" }}>
-          <Container>
-            <Grid
-              sx={{
-                pt: 3,
-              }}
-            >
-              {courses.map((course) => (
-                <Grid
-                  sx={{
-                    mb: 3,
-                  }}
-                >
-                  <DataItemTitle
-                    title={course.title}
-                    discription={course.discription}
-                    search_query={search_query}
-                    courseId={course._id}
-                  />
-                  <p style={{ color: "grey", marginTop: "-10px" }}>
-                    {course?.description?.slice(0, 100)}{" "}
-                    {course?.description?.length > 100 && "..."}
-                  </p>
-                </Grid>
-              ))}
-            </Grid>
-            <Grid
-              item
-              sx={{
-                display: "flex",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-            >
-              {/* <Pagination
-                count={5}
-                page={+page}
-                onChange={(e, v) => setPage(v)}
-                color="primary"
-                style={{ margin: "15px 0px" }}
-              /> */}
-            </Grid>
-          </Container>
+          <Grid style={{ padding: "1% 4% 1% 4%" }}>
+            {courses.map((course) => (
+              <Grid
+                sx={{
+                  mb: 3,
+                }}
+              >
+                <DataItemTitle
+                  title={course.title}
+                  discription={course.discription}
+                  search_query={search_query}
+                  courseId={course._id}
+                />
+                <p style={{ color: "grey", marginTop: "-10px" }}>
+                  {course?.description?.slice(0, 100)}{" "}
+                  {course?.description?.length > 100 && "..."}
+                </p>
+              </Grid>
+            ))}
+          </Grid>
+          <Grid
+            item
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+            }}
+          ></Grid>
         </div>
       ) : (
-        <NotFound search_query={search_query} />
+        <NotFound search_query={search_query} fromList />
       )}
     </main>
   );

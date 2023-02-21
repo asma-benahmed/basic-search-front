@@ -12,10 +12,11 @@ function NotFound(props) {
       }}
     >
       <div style={{ marginBottom: "15px" }}>
-        <img src={oops} alt="oops"/>
+        <img src={oops} alt="oops" />
       </div>
       <div>
-        Sorry! We couldn’t find any data matching "{" "}
+        Sorry! We couldn’t find any data{" "}
+        {props.fromList ? "matching" : "with ID"} "{" "}
         <span style={{ color: "#0F4798", fontWeight: "bold" }}>
           {props.search_query}
         </span>{" "}
