@@ -4,7 +4,7 @@ import "./styles.css";
 function Home() {
   return (
     <div id="box" style={{ flexDirection: "column" }}>
-      <SearchInput bgColor="#EBEAEB" color="black" />
+      <SearchInput bgColor="#EBEAEB" color="black" fromHome />
     </div>
   );
 }

@@ -39,7 +39,7 @@ const SearchIconWrapper = styled("a")(({ theme }) => ({
   justifyContent: "center",
 }));
 
-const SearchInput = (props) => {
+const SearchInput = ({ fromHome }) => {
   const query = useQuery();
   const navigate = useNavigate();
   const search_query = query.get("search_query");
@@ -60,7 +60,8 @@ const SearchInput = (props) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    if (search.length) navigate(`/search?search_query=${search || "none"}`);
+    if (!fromHome || (fromHome && search.length > 2))
+      navigate(`/search?search_query=${search || "none"}`);
     setFilter(false);
   };
 
