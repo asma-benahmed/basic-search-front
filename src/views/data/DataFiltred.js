@@ -9,6 +9,7 @@ import "./styles.css";
 import { useDispatch, useSelector } from "react-redux";
 import { ThreeCircles } from "react-loader-spinner";
 import { useQuery } from "../../utils/functions";
+import { Container } from "@mui/system";
 
 const DataFiltred = () => {
   const query = useQuery();
@@ -49,7 +50,11 @@ const DataFiltred = () => {
           <SearchInput bgColor="#EBEAEB" color="black" />{" "}
         </div>
       </div>
-      {!!courses.length ? (
+      {search_query.length <= 2 ? (
+        <Container>
+          <div>Please enter at least 3 letters</div>
+        </Container>
+      ) : !!courses.length ? (
         <div style={{ height: "100vh" }}>
           <Grid style={{ padding: "1% 4% 1% 4%" }}>
             {courses.map((course) => (
